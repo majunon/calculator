@@ -67,7 +67,7 @@ function operate(operator, a, b) {
     case '-':
       return (substract(a, b));
       break;
-    case '*':
+    case 'x':
       return (multiply(a, b));
       break;
     case '/':
@@ -78,44 +78,68 @@ function operate(operator, a, b) {
 
 // These are the variables used to do the calculation
 
-let operator, firstOperand, secondOperand;
+let operator="", firstOperand=0, secondOperand=0;
+let selectOperand=0;
 
 // Refresh the display
 
-function display() {
+function display(num1,num2,op) {
   const thirdLine = document.querySelector('.thirdLine');
   const secondLine = document.querySelector('.secondLine');
   const firstLine = document.querySelector('.firstLine');
 
-  thirdLine.textContent = firstOperand;
-  secondLine.textContent = operator;
-  firstLine.textContent = secondOperand;
+  thirdLine.textContent = num2;
+  if(op){
+    secondLine.textContent = op;
+    firstLine.textContent = num1;
+  }
+  console.log(firstOperand);
+  console.log(secondOperand);
+  console.log(operator);
 };
-display(); //init the display
+display(secondOperand, firstOperand, operator); //init the display
 
 // When a number is clicked
 
 const numbers = document.querySelectorAll('.number');
 numbers.forEach(number => {
   number.addEventListener('click', function (e) {
-    if(!firstOperand){
-      firstOperand=this.textContent;
+    if(selectOperand==0){
+      if(!firstOperand){
+        firstOperand=this.textContent;
+      }
+      else{
+        firstOperand+=this.textContent;
+      }
+      display(secondOperand, firstOperand, operator);
     }
     else{
-      firstOperand+=this.textContent;
+      if(!secondOperand){
+        secondOperand=this.textContent;
+      }
+      else{
+        secondOperand+=this.textContent;
+      }
+      display(firstOperand, secondOperand, operator);
     }
-    display();
   });
 });
 
 // When an operator is clicked
 
 const operators = document.querySelectorAll('.operator');
-operators.forEach(operator => {
-  operator.addEventListener('click', function (e) {
-    operator = this.textContent;
-    secondOperand = 
-    display();
+operators.forEach(operation => {
+  operation.addEventListener('click', function (e) {
+    if(selectOperand==0 || secondOperand==0){
+      selectOperand=1;
+      operator = this.textContent;
+    }
+    else {
+      firstOperand=operate(operator,firstOperand,secondOperand);
+      operator = this.textContent;
+      secondOperand=0;
+    }
+    display(firstOperand, secondOperand, operator);
   })
 });
 
@@ -123,16 +147,11 @@ operators.forEach(operator => {
 
 const enter = document.querySelector('#equal');
 enter.addEventListener('click', function (e) {
-  if(operatorSelection == 0){
-    return;
+  if(selectOperand==1){
+    firstOperand=operate(operator,firstOperand,secondOperand);
+    secondOperand=0;
+    display(firstOperand, secondOperand, operator);
   }
-  secondOperand = displayThirdLine;
-  displayFirstLine = firstOperand+displaySecondLine+secondOperand;
-  displayThirdLine = operate(operatorSelection, firstOperand, secondOperand);
-  firstOperand = displayThirdLine;
-  displaySecondLine = "=";
-  operatorSelection=0;
-  display();
 })
 
 // When clear is clicked
