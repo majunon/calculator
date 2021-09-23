@@ -6,14 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator</title>
   <link rel="stylesheet" href="style.css">
-  <script rel="javascript" src="script.js"></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="container">
     <h1>Calculette</h1>
     <div class="case">
       <div class="display">
-        <span>123456789.</span>
+        <p class="firstLine"></p>
+        <p class="secondLine"></p>
+        <p class="thirdLine"></p>
       </div>
       <div class="firstRow">
         <button id="clear">clear</button>
@@ -38,9 +40,9 @@
         <button id="minus" class="but operator">-</button>
       </div>
       <div class="lastRow">
-        <button id="dot" class="but">.</button>
+        <button id="dot" class="but number">.</button>
         <button id="zero" class="but number">0</button>
-        <button id="equal" class="but operator">=</button>
+        <button id="equal" class="but">=</button>
         <button id="plus" class="but operator">+</button>
       </div>    
     </div>
