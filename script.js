@@ -30,3 +30,9 @@ function operate(operator, a, b) {
       break;
   }
 };
+
+let 
+
+function display(number){
+
+}
