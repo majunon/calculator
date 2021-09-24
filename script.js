@@ -141,6 +141,12 @@ clear.addEventListener('click',function(e){
 
 const backspace = document.querySelector('#delete');
 backspace.addEventListener('click',function(e){
-  displayThirdLine=displayThirdLine.slice(0,-1);
-  display();
+  if(selectOperand == 0 && firstOperand !== 0){
+    firstOperand = firstOperand.slice(0,-1);
+    display(secondOperand, firstOperand, operator);
+  }
+  else if(secondOperand !== 0){
+    secondOperand = secondOperand.slice(0,-1);
+    display(firstOperand, secondOperand, operator);
+  }
 })
