@@ -40,7 +40,7 @@ function operate(operator, a, b) {
     case '-':
       return (substract(a, b));
       break;
-    case 'x':
+    case '*':
       return (multiply(a, b));
       break;
     case '/':
@@ -99,6 +99,31 @@ numbers.forEach(number => {
   });
 });
 
+// When a number is entered via keyboard
+
+window.addEventListener('keydown',function(e){
+  if(e.key.match(/\d/g)){
+    if(selectOperand==0){
+      if(!firstOperand){
+        firstOperand=e.key;
+      }
+      else{
+        firstOperand+=e.key;
+      }
+      display(secondOperand, firstOperand, operator);
+    }
+    else{
+      if(!secondOperand){
+        secondOperand=e.key;
+      }
+      else{
+        secondOperand+=e.key;
+      }
+      display(firstOperand, secondOperand, operator);
+    }
+  }
+})
+
 // When an operator is clicked
 
 const operators = document.querySelectorAll('.operator');
@@ -123,6 +148,29 @@ operators.forEach(operation => {
   })
 });
 
+// When an operator is entered via keyboard
+
+window.addEventListener('keydown',function(e){
+  if(e.key == "/" || e.key == "*" || e.key == "-" || e.key == "+"){
+    if(selectOperand==0 || secondOperand==0){
+      selectOperand=1;
+      operator = e.key;
+    }
+    else {
+      firstOperand=operate(operator,firstOperand,secondOperand);
+      operator = e.key;
+      secondOperand=0;
+    }
+    display(firstOperand, secondOperand, operator);
+    if(firstOperand == Infinity || firstOperand == -Infinity){
+      operator="";
+      firstOperand=0;
+      secondOperand=0;
+      selectOperand=0;
+    }
+  }
+})
+
 // When = is clicked
 
 const enter = document.querySelector('#equal');
@@ -140,6 +188,24 @@ enter.addEventListener('click', function (e) {
   }
 })
 
+// When Enter on keyboard
+
+window.addEventListener('keydown',function(e){
+  if(e.key == "Enter"){
+    if(selectOperand==1){
+      firstOperand=operate(operator,firstOperand,secondOperand);
+      secondOperand=0;
+      display(firstOperand, secondOperand, operator);
+      if(firstOperand == Infinity || firstOperand == -Infinity){
+        operator="";
+        firstOperand=0;
+        secondOperand=0;
+        selectOperand=0;
+      }
+    }
+  }
+})
+
 // When clear is clicked
 
 const clear = document.querySelector('#clear');
@@ -149,6 +215,18 @@ clear.addEventListener('click',function(e){
   secondOperand=0;
   selectOperand=0;
   display(secondOperand, firstOperand, operator);
+})
+
+// When Suppr on keyboard
+
+window.addEventListener('keydown',function(e){
+  if(e.key == "Delete"){
+    operator="";
+    firstOperand=0;
+    secondOperand=0;
+    selectOperand=0;
+    display(secondOperand, firstOperand, operator);
+  }
 })
 
 // When delete is clicked
@@ -165,6 +243,21 @@ backspace.addEventListener('click',function(e){
   }
 })
 
+// When backspace on keyboard
+
+window.addEventListener('keydown',function(e){
+  if(e.key == "Backspace"){
+    if(selectOperand == 0 && firstOperand !== 0){
+      firstOperand = firstOperand.slice(0,-1);
+      display(secondOperand, firstOperand, operator);
+    }
+    else if(secondOperand !== 0){
+      secondOperand = secondOperand.slice(0,-1);
+      display(firstOperand, secondOperand, operator);
+    }
+  }
+})
+
 // When dot is clicked
 
 const dot = document.querySelector("#dot");
@@ -176,5 +269,20 @@ dot.addEventListener('click', function(e){
   else if(selectOperand==1 && secondOperand%1===0 && secondOperand!=0){
     secondOperand+=this.textContent;
     display(firstOperand, secondOperand, operator);
+  }
+})
+
+// When dot on keyboard
+
+window.addEventListener('keydown',function(e){
+  if(e.key == "."){
+    if(selectOperand==0 && firstOperand%1===0 && firstOperand!==0){
+      firstOperand+=e.key;
+      display(secondOperand, firstOperand, operator);
+    }
+    else if(selectOperand==1 && secondOperand%1===0 && secondOperand!=0){
+      secondOperand+=e.key;
+      display(firstOperand, secondOperand, operator);
+    }
   }
 })
