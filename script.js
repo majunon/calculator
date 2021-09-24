@@ -1,31 +1,33 @@
+let precision = 10000;
+
 // MATHEMATICS
 
 function add(a, b) {
   let c = parseInt(a);
   let d = parseInt(b);
   
-  return(c + d);
+  return(Math.round((c + d)* precision)/precision);
 };
 
 function substract(a, b) {
   let c = parseInt(a);
   let d = parseInt(b);
   
-  return(c - d);
+  return(Math.round((c - d)* precision)/precision);
 };
 
 function multiply(a, b) {
   let c = parseInt(a);
   let d = parseInt(b);
   
-  return(c * d);
+  return(Math.round((c * d)* precision)/precision);
 };
 
 function divide(a, b) {
   let c = parseInt(a);
   let d = parseInt(b);
   
-  return(c / d);
+  return(Math.round((c / d)* precision)/precision);
 };
 
 // This is the function that do the calculation
