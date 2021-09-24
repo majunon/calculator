@@ -112,6 +112,12 @@ operators.forEach(operation => {
       secondOperand=0;
     }
     display(firstOperand, secondOperand, operator);
+    if(firstOperand == Infinity || firstOperand == -Infinity){
+      operator="";
+      firstOperand=0;
+      secondOperand=0;
+      selectOperand=0;
+    }
   })
 });
 
@@ -123,6 +129,12 @@ enter.addEventListener('click', function (e) {
     firstOperand=operate(operator,firstOperand,secondOperand);
     secondOperand=0;
     display(firstOperand, secondOperand, operator);
+    if(firstOperand == Infinity || firstOperand == -Infinity){
+      operator="";
+      firstOperand=0;
+      secondOperand=0;
+      selectOperand=0;
+    }
   }
 })
 
