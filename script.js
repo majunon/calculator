@@ -3,29 +3,29 @@ let precision = 10000;
 // MATHEMATICS
 
 function add(a, b) {
-  let c = parseInt(a);
-  let d = parseInt(b);
+  let c = parseFloat(a);
+  let d = parseFloat(b);
   
   return(Math.round((c + d)* precision)/precision);
 };
 
 function substract(a, b) {
-  let c = parseInt(a);
-  let d = parseInt(b);
+  let c = parseFloat(a);
+  let d = parseFloat(b);
   
   return(Math.round((c - d)* precision)/precision);
 };
 
 function multiply(a, b) {
-  let c = parseInt(a);
-  let d = parseInt(b);
+  let c = parseFloat(a);
+  let d = parseFloat(b);
   
   return(Math.round((c * d)* precision)/precision);
 };
 
 function divide(a, b) {
-  let c = parseInt(a);
-  let d = parseInt(b);
+  let c = parseFloat(a);
+  let d = parseFloat(b);
   
   return(Math.round((c / d)* precision)/precision);
 };
@@ -161,6 +161,20 @@ backspace.addEventListener('click',function(e){
   }
   else if(secondOperand !== 0){
     secondOperand = secondOperand.slice(0,-1);
+    display(firstOperand, secondOperand, operator);
+  }
+})
+
+// When dot is clicked
+
+const dot = document.querySelector("#dot");
+dot.addEventListener('click', function(e){
+  if(selectOperand==0 && firstOperand%1===0 && firstOperand!==0){
+    firstOperand+=this.textContent;
+    display(secondOperand, firstOperand, operator);
+  }
+  else if(selectOperand==1 && secondOperand%1===0 && secondOperand!=0){
+    secondOperand+=this.textContent;
     display(firstOperand, secondOperand, operator);
   }
 })
