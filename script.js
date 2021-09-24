@@ -1,60 +1,31 @@
-const maxValue = 10000000000;
-const minValue = -1000000000;
-
 // MATHEMATICS
 
 function add(a, b) {
   let c = parseInt(a);
   let d = parseInt(b);
-  let res = c + d;
-
-  if(res < maxValue && res > minValue){
-    return (res);
-  }
-  else{
-    return ("overflow");
-  }
+  
+  return(c + d);
 };
 
 function substract(a, b) {
   let c = parseInt(a);
   let d = parseInt(b);
-  let res = c - d;
-  if(res < maxValue && res > minValue){
-    return (res);
-  }
-  else{
-    return ("overflow");
-  }
+  
+  return(c - d);
 };
 
 function multiply(a, b) {
   let c = parseInt(a);
   let d = parseInt(b);
-  let res = c * d;
-
-  if(res < maxValue && res > minValue){
-    return (res);
-  }
-  else{
-    return ("overflow");
-  }
+  
+  return(c * d);
 };
 
 function divide(a, b) {
   let c = parseInt(a);
   let d = parseInt(b);
-  let res = c / d;
-
-  if(d == 0){
-    return ("infinity");
-  }
-  else if(res < maxValue && res > minValue){
-    return(res);
-  }
-  else{
-    return ("overflow");
-  }
+  
+  return(c / d);
 };
 
 // This is the function that do the calculation
@@ -93,9 +64,10 @@ function display(num1,num2,op) {
     secondLine.textContent = op;
     firstLine.textContent = num1;
   }
-  console.log(firstOperand);
-  console.log(secondOperand);
-  console.log(operator);
+  else{
+    secondLine.textContent  = "";
+    firstLine.textContent = "";
+  }
 };
 display(secondOperand, firstOperand, operator); //init the display
 
@@ -158,13 +130,11 @@ enter.addEventListener('click', function (e) {
 
 const clear = document.querySelector('#clear');
 clear.addEventListener('click',function(e){
-  displayFirstLine = "";
-  displaySecondLine = "";
-  displayThirdLine = "0";
-  operatorSelection = 0;
-  firstOperand = 0;
-  secondOperand = 0;
-  display();
+  operator="";
+  firstOperand=0;
+  secondOperand=0;
+  selectOperand=0;
+  display(secondOperand, firstOperand, operator);
 })
 
 // When delete is clicked
